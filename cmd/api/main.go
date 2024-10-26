@@ -8,10 +8,11 @@ import (
 )
 
 func main() {
-	dbClient, err := db.BuildDbClient()
+	dbClient, err := db.Build()
 	if err != nil {
 		panic(err)
 	}
+	dbClient.
 
 	for _, handler := range ApiHandlers {
 		http.HandleFunc(handler.path, handler.function)

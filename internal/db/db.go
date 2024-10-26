@@ -4,28 +4,24 @@ import (
 	"marcadors/internal/entities"
 )
 
-type Operations interface {
-	GetBookmarks() ([]entities.Bookmark, error)
-	AddBookmark(bookmark entities.Bookmark) error
-}
-
-type Db struct {
+type Repository struct {
 	bookmarks []entities.Bookmark
 }
 
-func BuildDbClient() (Db, error) {
+func Build() (Repository, error) {
 	bookmark1, err := entities.NewBookmark("uri", "1", "https://diccionari.icarns.xyz", "DCM")
+	bookmark2, err := entities.NewBookmark("uri", "1", "https://diccionari.icarns.xyz", "DCM")
 	if err != nil {
-		return Db{}, err
+		return Repository{}, err
 	}
-	return Db{bookmarks: []entities.Bookmark{bookmark1}}, nil
+	return Repository{bookmarks: []entities.Bookmark{bookmark1, bookmark2}}, nil
 }
 
-func (db *Db) GetBookmarks() ([]entities.Bookmark, error) {
-	return db.bookmarks, nil
+func (repo *Repository) GetBookmarks() ([]entities.Bookmark, error) {
+	return repo.bookmarks, nil
 }
 
-func (db *Db) AddBookmark(bookmark entities.Bookmark) error {
-	db.bookmarks = append(db.bookmarks, bookmark)
+func (repo *Repository) AddBookmark(bookmark entities.Bookmark) error {
+	repo.bookmarks = append(repo.bookmarks, bookmark)
 	return nil
 }
